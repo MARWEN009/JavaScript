@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>View Produit</title>
+	</head>
+	<body>
+		<h3>Ajouter un Produit</h3>
+
+		<form action="/produit/addProduit" method="post">
+			Refirence :
+			<input type="text" name="ref"><br>
+			Libelle :
+			<input type="text" name="libelle"><br>
+			Prix :
+			<input type="number" name="prix"><br>
+			Type :
+			<input type="text" name="type"><br>
+			<input type="submit" value="Ajouter">
+		</form>
+
+		<h3>Listes des Produits</h3>
+		<table border="1">
+			<thead>
+				<th>Refirence</th>
+				<th>Libelle</th>
+				<th>Prix</th>
+				<th>Type</th>
+			</thead>
+			<tbody>
+				{% for item in data %}
+					<tr>
+						<td>
+							{{ item.ref }}
+						</td>
+						<td>
+							{{ item.libelle }}
+						</td>
+						<td>
+							{{ item.prix }}
+						</td>
+						<td>
+							{{ item.type }}
+						</td>
+						<td>
+							<a href="/produit/delete/{{ item._id }}">Supprimer</a>
+
+							<a href="/produit/modifier/{{ item._id }}">Modifier</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div >
+			<h3>Modification Produit</h3>
+			<form method="post" action="/produit/updateaction">
+				Refirence :
+				<input type="text" name="ref" value="{{data[0].ref}}"/><br>
+				Libelle:
+				<input type="text" name="libelle" value="{{data[0].libelle}}"/><br>
+                Prix : 
+				<input type="number" name="prix" value="{{ data[0].prix }}"/><br>
+                Type : 
+				<input type="text" name="type" value="{{ data[0].type }}"/><br>
+                <input type="hidden" name="ids" value="{{ data[0]._id }}" />
+
+				<input type="submit" value="Modifier"/>
+
+			</form>
+		</div>
+	</body>
+</html>
